@@ -459,7 +459,7 @@
   }
     
   .moviebox {
-    width: 70px;
+    display: none;
   }
   .signin {
     justify-content: flex-end;
