@@ -14,5 +14,5 @@
 
 ### Hosted Link
 
-- <http://localhost:3001/authentication>
+- <https://kindness-okpugie-movieapp.vercel.app/>
 

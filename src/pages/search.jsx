@@ -1,14 +1,13 @@
 import './home.css'
 import Imob from '../assets/imob.png';
 import Tomatoe from '../assets/tomato.png';
-import Favorite from '../assets/Favorite.png';
+import { AiOutlineHeart } from 'react-icons/ai'
 import Footer from '../components/footer.jsx';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Search from '../assets/search.png';
 import Tv from '../assets/tv.png';
-import Luv from '../assets/luve.jpg';
 import Menu from '../assets/menu.png';
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -45,7 +44,15 @@ const Searchpage = () => {
     redirect(`/search/${word}`);
     window.location.reload(true)
   }
-  const switchIcon = () => setChangeIcon(!changeIcon);
+  const toggleFavorite = (e) => {
+    const button = e.currentTarget;
+    button.classList.toggle('favorite');
+    if (button.classList.contains('favorite')) {
+      button.Color = 'red';
+    } else {
+      button.Color = 'white';
+    }
+  };
   useEffect(() => {
     searchMovie();
   }, []);
@@ -94,7 +101,7 @@ const Searchpage = () => {
                   <div className='movie-list' data-testid= 'movie-card' key={movie.id}>
                     <div className='moviepic'>
                       <img alt='movieimage' data-testid='movie-poster' onClick={() => openUrl(movie.id)} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
-                      <button><img alt='imob' onClick={()=>switchIcon()} src={changeIcon ? Luv : Favorite} /></button>
+                      <button type="button" className="fav-icon" onClick={(e) => toggleFavorite(e)}><AiOutlineHeart/></button>
                     </div>
                     <div className='about'>
                       <p data-testid='movie-release-date' >{movie.release_date}</p>

@@ -207,7 +207,8 @@
 .about {
     margin: 10px 0;
     font-size: 18px;
-    width: 400px
+    width: 400px;
+    overflow: hidden;
 }
 .main-list {
     margin-top: 50px;
@@ -277,18 +278,23 @@
     height: 100%;
     object-fit: cover;
 }
-.moviepic button {
+.fav-icon {
     z-index: 20;
     border: 0;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     background: #58629b;
     margin-right: 10px;
     cursor: pointer;
     position: absolute;
     top: 10px;
     right: 10px;
+    font-size: 20px;
+}  
+.fav-icon.favorite {
+    background-color: #be123c;
+    color: white;
 }
 .moviepic button img {
     width: 30px;
@@ -392,6 +398,9 @@
     .main-container header {
       padding: 0 10px;
     }
+    .search-container header {
+        padding: 0 10px;
+    }
     .first-screen main {
       grid-template-columns: 100%;
       display: flex;
@@ -435,6 +444,9 @@
     .main-container header {
       padding: 0 20px;
     }
+    .search-container header {
+      padding: 0 20px;
+    }
     .moviebox h2 {
         display: none;
     }
@@ -457,7 +469,9 @@
   .main-container header {
     padding: 0 10px;
   }
-    
+  .search-container header {
+    padding: 0 10px;
+  }
   .moviebox {
     display: none;
   }
@@ -475,11 +489,11 @@
     grid-template-columns: 100%;
   }
   .home-left {
-    padding: 0 2px;
+    padding: 0 5px;
     width: 100%;
   }
   .first-para {
-      text-align: start;
+    text-align: start;
   }
   .second-para {
       text-align: start;
@@ -505,6 +519,10 @@
   .moviepic {
     width: 100%;
     height: 280px;
+  }
+  
+  .about {
+    width: 98%;
   }
 }
 
