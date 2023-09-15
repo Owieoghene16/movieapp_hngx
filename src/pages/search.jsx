@@ -1,7 +1,7 @@
 import './home.css'
 import Imob from '../assets/imob.png';
 import Tomatoe from '../assets/tomato.png';
-import Favorite from '../assets/Favorite.png';
+import { AiOutlineHeart } from 'react-icons/ai'
 import Footer from '../components/footer.jsx';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -17,6 +17,7 @@ const Searchpage = () => {
   const [searchValue, setSearchValue] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [loading, setLoading] = useState(true);
+  const [changeIcon, setChangeIcon] = useState(false);
   const options = {
     method: 'GET',
     url: `https://api.themoviedb.org/3/search/movie?query=${word}&include_adult=false&language=en-US&page=1`,  
@@ -43,6 +44,15 @@ const Searchpage = () => {
     redirect(`/search/${word}`);
     window.location.reload(true)
   }
+  const toggleFavorite = (e) => {
+    const button = e.currentTarget;
+    button.classList.toggle('favorite');
+    if (button.classList.contains('favorite')) {
+      button.Color = 'red';
+    } else {
+      button.Color = 'white';
+    }
+  };
   useEffect(() => {
     searchMovie();
   }, []);
@@ -80,18 +90,20 @@ const Searchpage = () => {
           <div className='movie-container'>
             {
               loading ?
+              <div className='loaded-center'> 
                 <ClipLoader
                   color={'steelblue'}
                   loading={loading}
                   size={50}
                   aria-label="Loading Spinner"
                   data-testid="loader"
-                /> :
+                />
+                </div> :
                 searchValue.map((movie) => (
                   <div className='movie-list' data-testid= 'movie-card' key={movie.id}>
                     <div className='moviepic'>
                       <img alt='movieimage' data-testid='movie-poster' onClick={() => openUrl(movie.id)} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
-                      <button><img alt='imob' src={Favorite} /></button>
+                      <button type="button" className="fav-icon" onClick={(e) => toggleFavorite(e)}><AiOutlineHeart/></button>
                     </div>
                     <div className='about'>
                       <p data-testid='movie-release-date' >{movie.release_date}</p>
