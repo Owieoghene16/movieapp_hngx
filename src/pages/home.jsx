@@ -2,14 +2,15 @@ import './home.css'
 import { FaGreaterThan } from 'react-icons/fa';
 import Imob from '../assets/imob.png';
 import Tomatoe from '../assets/tomato.png';
+import Favorite from '../assets/Favorite.png';
 import Navcontent from '../components/navcontent.jsx';
 import Navbar from '../components/navbar.jsx';
 import Footer from '../components/footer.jsx';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Luv from '../assets/luve.jpg';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { AiOutlineHeart } from 'react-icons/ai';
 import 'swiper/css';
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -18,6 +19,7 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   let [color, setColor] = useState("steelblue");
+  const [changeIcon, setChangeIcon] = useState(false);
   const options = {
     method: 'GET',
     url: 'https://api.themoviedb.org/3/movie/popular?api_key=b991de6ee9dc8e55c2bcc7a20cc0a756',  
@@ -39,15 +41,7 @@ const Home = () => {
   const openUrl = (id) => {
     redirect(`/movies/${id}`)
   };
-  const toggleFavorite = (e) => {
-    const button = e.currentTarget;
-    button.classList.toggle('favorite');
-    if (button.classList.contains('favorite')) {
-      button.Color = 'red';
-    } else {
-      button.Color = 'white';
-    }
-  };
+  const switchIcon = () => setChangeIcon(!changeIcon);
   
   useEffect(() => {
     loadUserMovie();
@@ -113,7 +107,7 @@ const Home = () => {
                   <div className='movie-list' data-testid= 'movie-card' key={movie.id}>
                     <div className='moviepic'>
                       <img alt='movieimage' data-testid='movie-poster' onClick={() => openUrl(movie.id)} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
-                      <button type="button" className="fav-icon" onClick={(e) => toggleFavorite(e)}><AiOutlineHeart/></button>
+                      <button><img alt='imob' onClick={()=>switchIcon()} src={changeIcon ? Luv : Favorite} /></button>
                     </div>
                     <div className='about'>
                       <p data-testid='movie-release-date' >{movie.release_date}</p>
@@ -162,7 +156,7 @@ const Home = () => {
                   <div className='movie-list' data-testid='movie-card' key={movie.id}>
                     <div className='moviepic'>
                       <img alt='movieimage' data-testid='movie-poster' onClick={() => openUrl(movie.id)} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
-                      <button type="button" className="fav-icon" onClick={(e) => toggleFavorite(e)}><AiOutlineHeart/></button>
+                      <button><img alt='imob' src={Favorite} /></button>
                     </div>
                     <div className='about'>
                       <p data-testid='movie-release-date'>{movie.release_date}</p>
